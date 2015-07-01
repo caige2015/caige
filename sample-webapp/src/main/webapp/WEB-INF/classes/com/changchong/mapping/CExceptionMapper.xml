@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.CExceptionMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.CException" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="device_id" property="deviceId" jdbcType="CHAR" />
+    <result column="terminal" property="terminal" jdbcType="CHAR" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.changchong.model.CException" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, device_id, terminal, day, createtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from exception
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="searchByPo" resultMap="BaseResultMap" parameterType="com.changchong.model.CException" >
+    select 
+    <include refid="Base_Column_List" /> ,
+    <include refid="Blob_Column_List" />
+    from exception
+    <trim prefix="" suffixOverrides="AND |OR">
+	    <where > 
+		    <if test="day != null &amp; day1 != null">
+		         and day &gt;= #{day} and day &lt;= #{day1}
+		    </if> 
+		     <if test="terminal != null and terminal != ''" >
+		       and  terminal  = #{terminal}
+		    </if>
+	  	</where>
+	  </trim>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exception
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.CException" >
+    insert into exception (id, device_id, terminal, 
+      day, createtime, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{deviceId,jdbcType=CHAR}, #{terminal,jdbcType=CHAR}, 
+      #{day,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.CException" >
+    insert into exception
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="terminal != null" >
+        terminal,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=CHAR},
+      </if>
+      <if test="terminal != null" >
+        #{terminal,jdbcType=CHAR},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.CException" >
+    update exception
+    <set >
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=CHAR},
+      </if>
+      <if test="terminal != null" >
+        terminal = #{terminal,jdbcType=CHAR},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.changchong.model.CException" >
+    update exception
+    set device_id = #{deviceId,jdbcType=CHAR},
+      terminal = #{terminal,jdbcType=CHAR},
+      day = #{day,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.CException" >
+    update exception
+    set device_id = #{deviceId,jdbcType=CHAR},
+      terminal = #{terminal,jdbcType=CHAR},
+      day = #{day,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.PidVidMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.PidVid" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vid" property="vid" jdbcType="CHAR" />
+    <result column="pid" property="pid" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="terminal" property="terminal" jdbcType="INTEGER" />
+    <result column="running_id" property="runningId" jdbcType="INTEGER" />
+    <result column="insert_time" property="insertTime" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vid, pid, type, status, terminal, running_id, insert_time, createtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pid_vid
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pid_vid
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.PidVid" >
+    insert into pid_vid (id, vid, pid, type, 
+      status, terminal, running_id, 
+      insert_time, createtime)
+    values (#{id,jdbcType=INTEGER}, #{vid,jdbcType=CHAR}, #{pid,jdbcType=CHAR}, #{type,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{terminal,jdbcType=INTEGER}, #{runningId,jdbcType=INTEGER}, 
+      #{insertTime,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.PidVid" >
+    insert into pid_vid
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vid != null" >
+        vid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="terminal != null" >
+        terminal,
+      </if>
+      <if test="runningId != null" >
+        running_id,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vid != null" >
+        #{vid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="terminal != null" >
+        #{terminal,jdbcType=INTEGER},
+      </if>
+      <if test="runningId != null" >
+        #{runningId,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.PidVid" >
+    update pid_vid
+    <set >
+      <if test="vid != null" >
+        vid = #{vid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="terminal != null" >
+        terminal = #{terminal,jdbcType=INTEGER},
+      </if>
+      <if test="runningId != null" >
+        running_id = #{runningId,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.PidVid" >
+    update pid_vid
+    set vid = #{vid,jdbcType=CHAR},
+      pid = #{pid,jdbcType=CHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      terminal = #{terminal,jdbcType=INTEGER},
+      running_id = #{runningId,jdbcType=INTEGER},
+      insert_time = #{insertTime,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

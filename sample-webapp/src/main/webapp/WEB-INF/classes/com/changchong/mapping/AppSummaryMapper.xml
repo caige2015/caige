@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.AppSummaryMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.AppSummary" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+    <result column="install_amount" property="installAmount" jdbcType="INTEGER" />
+    <result column="total_install" property="totalInstall" jdbcType="INTEGER" />
+    <result column="new_user" property="newUser" jdbcType="INTEGER" />
+    <result column="active_user" property="activeUser" jdbcType="INTEGER" />
+    <result column="all_user" property="allUser" jdbcType="INTEGER" />
+    <result column="start_amount" property="startAmount" jdbcType="INTEGER" />
+    <result column="avg_per_times" property="avgPerTimes" jdbcType="INTEGER" />
+    <result column="avg_per_day" property="avgPerDay" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, day, app_id, app_version, install_amount, total_install, new_user, active_user, 
+    all_user, start_amount, avg_per_times, avg_per_day
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_summary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="searchByPo" resultMap="BaseResultMap" parameterType="com.changchong.model.AppSummary" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_summary
+    <trim prefix="" suffixOverrides="AND |OR">
+	    <where > 
+		    <if test="appId != null">
+		         app_id = #{appId}
+		    </if> 
+		     <if test="appVersion != null and appVersion!=''">
+		         and app_version = #{appVersion}
+		    </if>
+		    <if test="day != null &amp; day1 != null">
+		         and day &gt;= #{day} and day &lt;= #{day1}
+		    </if> 
+	  	</where>
+	  </trim>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from app_summary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.AppSummary" >
+    insert into app_summary (id, day, app_id, 
+      app_version, install_amount, total_install, 
+      new_user, active_user, all_user, 
+      start_amount, avg_per_times, avg_per_day
+      )
+    values (#{id,jdbcType=INTEGER}, #{day,jdbcType=INTEGER}, #{appId,jdbcType=INTEGER}, 
+      #{appVersion,jdbcType=VARCHAR}, #{installAmount,jdbcType=INTEGER}, #{totalInstall,jdbcType=INTEGER}, 
+      #{newUser,jdbcType=INTEGER}, #{activeUser,jdbcType=INTEGER}, #{allUser,jdbcType=INTEGER}, 
+      #{startAmount,jdbcType=INTEGER}, #{avgPerTimes,jdbcType=INTEGER}, #{avgPerDay,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.AppSummary" >
+    insert into app_summary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="appVersion != null" >
+        app_version,
+      </if>
+      <if test="installAmount != null" >
+        install_amount,
+      </if>
+      <if test="totalInstall != null" >
+        total_install,
+      </if>
+      <if test="newUser != null" >
+        new_user,
+      </if>
+      <if test="activeUser != null" >
+        active_user,
+      </if>
+      <if test="allUser != null" >
+        all_user,
+      </if>
+      <if test="startAmount != null" >
+        start_amount,
+      </if>
+      <if test="avgPerTimes != null" >
+        avg_per_times,
+      </if>
+      <if test="avgPerDay != null" >
+        avg_per_day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="appVersion != null" >
+        #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="installAmount != null" >
+        #{installAmount,jdbcType=INTEGER},
+      </if>
+      <if test="totalInstall != null" >
+        #{totalInstall,jdbcType=INTEGER},
+      </if>
+      <if test="newUser != null" >
+        #{newUser,jdbcType=INTEGER},
+      </if>
+      <if test="activeUser != null" >
+        #{activeUser,jdbcType=INTEGER},
+      </if>
+      <if test="allUser != null" >
+        #{allUser,jdbcType=INTEGER},
+      </if>
+      <if test="startAmount != null" >
+        #{startAmount,jdbcType=INTEGER},
+      </if>
+      <if test="avgPerTimes != null" >
+        #{avgPerTimes,jdbcType=INTEGER},
+      </if>
+      <if test="avgPerDay != null" >
+        #{avgPerDay,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.AppSummary" >
+    update app_summary
+    <set >
+      <if test="day != null" >
+        day = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="appVersion != null" >
+        app_version = #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="installAmount != null" >
+        install_amount = #{installAmount,jdbcType=INTEGER},
+      </if>
+      <if test="totalInstall != null" >
+        total_install = #{totalInstall,jdbcType=INTEGER},
+      </if>
+      <if test="newUser != null" >
+        new_user = #{newUser,jdbcType=INTEGER},
+      </if>
+      <if test="activeUser != null" >
+        active_user = #{activeUser,jdbcType=INTEGER},
+      </if>
+      <if test="allUser != null" >
+        all_user = #{allUser,jdbcType=INTEGER},
+      </if>
+      <if test="startAmount != null" >
+        start_amount = #{startAmount,jdbcType=INTEGER},
+      </if>
+      <if test="avgPerTimes != null" >
+        avg_per_times = #{avgPerTimes,jdbcType=INTEGER},
+      </if>
+      <if test="avgPerDay != null" >
+        avg_per_day = #{avgPerDay,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.AppSummary" >
+    update app_summary
+    set day = #{day,jdbcType=INTEGER},
+      app_id = #{appId,jdbcType=INTEGER},
+      app_version = #{appVersion,jdbcType=VARCHAR},
+      install_amount = #{installAmount,jdbcType=INTEGER},
+      total_install = #{totalInstall,jdbcType=INTEGER},
+      new_user = #{newUser,jdbcType=INTEGER},
+      active_user = #{activeUser,jdbcType=INTEGER},
+      all_user = #{allUser,jdbcType=INTEGER},
+      start_amount = #{startAmount,jdbcType=INTEGER},
+      avg_per_times = #{avgPerTimes,jdbcType=INTEGER},
+      avg_per_day = #{avgPerDay,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

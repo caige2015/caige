@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.DistrictMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.District" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="TINYINT" />
+    <result column="usetype" property="usetype" jdbcType="BIT" />
+    <result column="upid" property="upid" jdbcType="INTEGER" />
+    <result column="displayorder" property="displayorder" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, level, usetype, upid, displayorder
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from district
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="searchByPo" useCache="true" resultMap="BaseResultMap" parameterType="com.changchong.model.District" >
+    select 
+    <include refid="Base_Column_List" />
+    from district
+    <trim prefix="" suffixOverrides="AND |OR">
+	    <where > 
+		    <if test="name != null">
+		         name = #{name}
+		    </if> 
+		     <if test="upid != null">
+		       and  upid  = #{upid}
+		    </if>
+		    <if test="id != null">
+		         and id != #{id}
+		    </if>
+		    and level &lt; 3
+	  	</where>
+	  </trim>
+	   ORDER BY upid
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from district
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.District" >
+    insert into district (id, name, level, 
+      usetype, upid, displayorder
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=TINYINT}, 
+      #{usetype,jdbcType=BIT}, #{upid,jdbcType=INTEGER}, #{displayorder,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.District" >
+    insert into district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="usetype != null" >
+        usetype,
+      </if>
+      <if test="upid != null" >
+        upid,
+      </if>
+      <if test="displayorder != null" >
+        displayorder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="usetype != null" >
+        #{usetype,jdbcType=BIT},
+      </if>
+      <if test="upid != null" >
+        #{upid,jdbcType=INTEGER},
+      </if>
+      <if test="displayorder != null" >
+        #{displayorder,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.District" >
+    update district
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="usetype != null" >
+        usetype = #{usetype,jdbcType=BIT},
+      </if>
+      <if test="upid != null" >
+        upid = #{upid,jdbcType=INTEGER},
+      </if>
+      <if test="displayorder != null" >
+        displayorder = #{displayorder,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.District" >
+    update district
+    set name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      usetype = #{usetype,jdbcType=BIT},
+      upid = #{upid,jdbcType=INTEGER},
+      displayorder = #{displayorder,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

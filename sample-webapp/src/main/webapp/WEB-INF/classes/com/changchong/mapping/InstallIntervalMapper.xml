@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.InstallIntervalMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.InstallInterval" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="app_pkg" property="appPkg" jdbcType="VARCHAR" />
+    <result column="phone_token" property="phoneToken" jdbcType="VARCHAR" />
+    <result column="time_interval" property="timeInterval" jdbcType="INTEGER" />
+    <result column="insert_time" property="insertTime" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.changchong.model.InstallInterval" extends="BaseResultMap" >
+    <result column="phone_info" property="phoneInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, app_pkg, phone_token, time_interval, insert_time, createtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    phone_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from install_interval
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from install_interval
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.InstallInterval" >
+    insert into install_interval (id, app_pkg, phone_token, 
+      time_interval, insert_time, createtime, 
+      phone_info)
+    values (#{id,jdbcType=BIGINT}, #{appPkg,jdbcType=VARCHAR}, #{phoneToken,jdbcType=VARCHAR}, 
+      #{timeInterval,jdbcType=INTEGER}, #{insertTime,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{phoneInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.InstallInterval" >
+    insert into install_interval
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appPkg != null" >
+        app_pkg,
+      </if>
+      <if test="phoneToken != null" >
+        phone_token,
+      </if>
+      <if test="timeInterval != null" >
+        time_interval,
+      </if>
+      <if test="insertTime != null" >
+        insert_time,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="phoneInfo != null" >
+        phone_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appPkg != null" >
+        #{appPkg,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneToken != null" >
+        #{phoneToken,jdbcType=VARCHAR},
+      </if>
+      <if test="timeInterval != null" >
+        #{timeInterval,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        #{insertTime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneInfo != null" >
+        #{phoneInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.InstallInterval" >
+    update install_interval
+    <set >
+      <if test="appPkg != null" >
+        app_pkg = #{appPkg,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneToken != null" >
+        phone_token = #{phoneToken,jdbcType=VARCHAR},
+      </if>
+      <if test="timeInterval != null" >
+        time_interval = #{timeInterval,jdbcType=INTEGER},
+      </if>
+      <if test="insertTime != null" >
+        insert_time = #{insertTime,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneInfo != null" >
+        phone_info = #{phoneInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.changchong.model.InstallInterval" >
+    update install_interval
+    set app_pkg = #{appPkg,jdbcType=VARCHAR},
+      phone_token = #{phoneToken,jdbcType=VARCHAR},
+      time_interval = #{timeInterval,jdbcType=INTEGER},
+      insert_time = #{insertTime,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      phone_info = #{phoneInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.InstallInterval" >
+    update install_interval
+    set app_pkg = #{appPkg,jdbcType=VARCHAR},
+      phone_token = #{phoneToken,jdbcType=VARCHAR},
+      time_interval = #{timeInterval,jdbcType=INTEGER},
+      insert_time = #{insertTime,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

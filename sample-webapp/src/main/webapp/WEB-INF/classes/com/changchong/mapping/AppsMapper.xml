@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.AppsMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.Apps" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="app_pkg_name" property="appPkgName" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="md5" property="md5" jdbcType="CHAR" />
+    <result column="down_url" property="downUrl" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="district" property="district" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, app_name, app_pkg_name, file_name, md5, down_url, version, status,district, createtime, 
+    updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from apps
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="searchByPo" resultMap="BaseResultMap" parameterType="com.changchong.model.Apps" >
+    select 
+    <include refid="Base_Column_List" />
+    from apps
+    <trim prefix="" suffixOverrides="AND |OR">
+	    <where > 
+		    <if test="appName != null">
+		         app_name = #{appName}
+		    </if> 
+		     <if test="appPkgName != null">
+		       and  app_pkg_name  = #{appPkgName}
+		    </if>
+		     <if test="fileName != null">
+		        and file_name  = #{fileName}
+		    </if>
+		     <if test="md5 != null">
+		         and md5 = #{md5}
+		    </if>
+		     <if test="version != null">
+		         and version = #{version}
+		    </if>
+		    <if test="versionId != null">
+		         and version_id = #{versionId}
+		    </if>
+		    <if test="district != null">
+		         and district = #{district}
+		    </if>		    
+		    <if test="status != null">
+		         and status = #{status}
+		    </if>
+		     <if test="createtime != null">
+		         and createtime = #{createtime}
+		    </if>
+		     <if test="updatetime != null">
+		         and updatetime = #{updatetime}
+		    </if>
+		    <if test="id != null">
+		         and id != #{id}
+		    </if>
+	  	</where>
+	  </trim>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from apps
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.Apps" >
+    insert into apps (id, app_name, app_pkg_name, 
+      file_name, md5, down_url, 
+      version, status,district, createtime, 
+      updatetime)
+    values (#{id,jdbcType=BIGINT}, #{appName,jdbcType=VARCHAR}, #{appPkgName,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{md5,jdbcType=CHAR}, #{downUrl,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR}, #{district,jdbcType=TINYINT},#{status,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.Apps" >
+    insert into apps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="appPkgName != null" >
+        app_pkg_name,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="md5 != null" >
+        md5,
+      </if>
+      <if test="downUrl != null" >
+        down_url,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appPkgName != null" >
+        #{appPkgName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=CHAR},
+      </if>
+      <if test="downUrl != null" >
+        #{downUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.Apps" >
+    update apps
+    <set >
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appPkgName != null" >
+        app_pkg_name = #{appPkgName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5,jdbcType=CHAR},
+      </if>
+      <if test="downUrl != null" >
+        down_url = #{downUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.Apps" >
+    update apps
+    set app_name = #{appName,jdbcType=VARCHAR},
+      app_pkg_name = #{appPkgName,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=CHAR},
+      down_url = #{downUrl,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      district = #{district,jdbcType=TINYINT},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

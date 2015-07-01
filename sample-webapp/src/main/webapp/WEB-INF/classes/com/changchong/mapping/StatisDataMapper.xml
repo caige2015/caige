@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.StatisDataMapper" >
+  <select   id="insertStatisData" statementType="CALLABLE" parameterMap="param">
+
+	<![CDATA[
+	    call statis_data (?)
+	]]>
+  </select >
+   <parameterMap type="java.util.Map" id="param">
+         <parameter property="day" mode="IN" jdbcType="INTEGER"/>
+   </parameterMap>
+</mapper>

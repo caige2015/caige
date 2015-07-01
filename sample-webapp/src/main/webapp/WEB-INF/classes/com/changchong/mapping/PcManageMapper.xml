@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.changchong.dao.PcManageMapper" >
+  <resultMap id="BaseResultMap" type="com.changchong.model.PcManage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, location,district, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pc_manage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="searchByPcManage" resultType="com.changchong.model.PcManage" parameterType="com.changchong.model.PcManage" >
+    select 
+    <include refid="Base_Column_List" />
+    from pc_manage
+    <where > 
+	    <if test="name != null">
+	         name = #{name}
+	    </if> 
+	    <if test="location != null">
+	         location = #{location}
+	    </if>
+	    <if test="district != null">
+	         district = #{districts}
+	    </if>
+	     <if test="createtime != null">
+	         createtime = #{createtime}
+	    </if>
+	     <if test="updatetime != null">
+	         updatetime = #{updatetime}
+	    </if>
+	    <if test="id != null">
+	         and id != #{id}
+	    </if>
+  	</where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pc_manage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.changchong.model.PcManage" >
+    insert into pc_manage (id, name, location, district,
+      createtime, updatetime)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR},  #{district,jdbcType=VARCHAR},
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.changchong.model.PcManage" >
+    insert into pc_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.changchong.model.PcManage" >
+    update pc_manage
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+       <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.changchong.model.PcManage" >
+    update pc_manage
+    set name = #{name,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByName" parameterType="com.changchong.model.PcManage" >
+    update pc_manage
+    set  updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>
