@@ -26,7 +26,7 @@ public class ApkInfo {
     }
 
     public static void main(String args[]) {
-        AppPkgTO to=getApkInfo("c:/03igulzjnsq.apk");
-        System.out.println(to.getPackageName());
+        AppPkgTO to=getApkInfo("D:/apps/fengyun_1.0.0.0_anqu_67892_100066.apk");
+        System.out.println(to);
     }
 }
